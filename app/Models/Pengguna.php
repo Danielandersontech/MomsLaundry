@@ -23,7 +23,7 @@ class Pengguna extends Model
     protected $primaryKey = 'id_pengguna';
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class, 'id_pengguna', 'id_pengguna');
     }
 
     public function feedbacks(): HasMany

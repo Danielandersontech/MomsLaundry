@@ -59,6 +59,11 @@ class OrderController extends Controller
         return redirect()->route('order.index')->with('success', 'Order berhasil dibuat.');
     }
 
+    public function show(string $id)
+    {
+        $order = Order::with(['pengguna', 'package'])->findOrFail($id);
+        return view('order_show', ['order' => $order]);
+    }
     public function edit(Order $order)
     {
         $listPengguna = Pengguna::all();
@@ -96,7 +101,9 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
+        
         $order->delete();
-        return back()->with('success', 'Order berhasil dihapus.');
+        flash('Data Order Berhasil dihapus')->success();
+        return back();
     }
 }
