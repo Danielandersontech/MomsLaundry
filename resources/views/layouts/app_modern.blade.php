@@ -15,7 +15,6 @@
             align-items: center;
             justify-content: center;
         }
-        
     </style>
 </head>
 
@@ -71,6 +70,17 @@
                             </ul>
                         </li>
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link {{ request()->is('laporan.pengguna') ? 'active' : '' }}"
+                                href="/laporan-pengguna/create" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-receipt"></i>
+                                </span>
+                                <span class="hide-menu">Laporan Data Pengguna</span>
+                            </a>
+                        </li>
+
+
                         {{-- PACKAGES --}}
                         <li class="sidebar-item">
                             <a class="sidebar-link {{ request()->is('packages') ? 'active' : '' }}" href="/packages"
@@ -98,6 +108,16 @@
                                     <i class="ti ti-shopping-cart"></i>
                                 </span>
                                 <span class="hide-menu">Data Pesanan</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link {{ request()->is('laporan-order') ? 'active' : '' }}"
+                                href="/laporan-order/create" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-receipt"></i>
+                                </span>
+                                <span class="hide-menu">Laporan Data Pesanan</span>
                             </a>
                         </li>
 

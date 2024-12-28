@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\LaporanOrderController;
+use App\Http\Controllers\LaporanPenggunaController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PaymentController;
@@ -15,6 +17,8 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::resource('order', OrderController::class);
     Route::resource('payment', PaymentController::class);
     Route::resource('feedback', FeedbackController::class);
+    Route::resource('laporan-pengguna', LaporanPenggunaController::class);
+    Route::resource('laporan-order', LaporanOrderController::class);
 });
 
 Auth::routes();
