@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <a href="{{ route('feedback.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+                    <a href="/admin/feedback/create" class="btn btn-primary btn-sm">Tambah Data</a>
                 </div>
             </div>
             <table class="table table-striped">
@@ -28,7 +28,7 @@
                             <td>{{ $feedback->rating }}</td>
                             <td>{{ $feedback->komentar }}</td>
                             <td>
-                                <form action="{{ route('feedback.destroy', $feedback->id_feedback) }}" method="POST" class="d-inline">
+                                <form action="/admin/feedback/{{ $feedback->id_feedback }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>

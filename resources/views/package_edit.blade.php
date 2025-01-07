@@ -4,7 +4,7 @@
     <div class="card">
         <h5 class="card-header">Edit Data Paket: <b>{{ strtoupper($package->nama_paket) }}</b></h5>
         <div class="card-body">
-            <form action="/package/{{ $package->id_package }}" method="POST">
+            <form action="/admin/package/{{ $package->id_package }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="form-group mt-1 mb-3">
@@ -23,7 +23,7 @@
                     <span class="text-danger">{{ $errors->first('harga_per_kg') }}</span>
                 </div>
                 <div class="form-group mt-1 mb-3">
-                    <label for="durasi">Durasi (Hari)</label>
+                    <label for="durasi">Durasi (Jam)</label>
                     <input type="text" class="form-control @error('durasi') is-invalid @enderror" id="durasi" name="durasi" value="{{ old('durasi', $package->durasi) }}">
                     <span class="text-danger">{{ $errors->first('durasi') }}</span>
                 </div>

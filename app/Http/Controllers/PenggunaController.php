@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Pengguna;
+use Illuminate\Support\Facades\Auth;
 
 class PenggunaController extends Controller
 {
     public function index()
     {
-        if (request()->filled('q')){
+        if (request()->filled('q')) {
             $data['penggunas'] = Pengguna::search(request('q'))->paginate(10);
         } else {
             $data['penggunas'] = Pengguna::latest()->paginate(10);
@@ -34,11 +34,11 @@ class PenggunaController extends Controller
             'role' => 'required|in:pelanggan,pemilik_laundry',
         ]);
 
-        $requestData['password'] = bcrypt($requestData['password']); // Encrypt password
+        $requestData['password'] = bcrypt($requestData['password']); // Encrypt password  
         Pengguna::create($requestData);
 
         flash('Data pengguna berhasil disimpan.')->success();
-        return redirect('/pengguna');
+        return redirect('/admin/pengguna');
     }
 
     public function show(string $id)
@@ -67,7 +67,7 @@ class PenggunaController extends Controller
         ]);
 
         if (!empty($requestData['password'])) {
-            $requestData['password'] = bcrypt($requestData['password']); // Encrypt new password
+            $requestData['password'] = bcrypt($requestData['password']); // Encrypt new password  
         } else {
             unset($requestData['password']);
         }
@@ -75,14 +75,14 @@ class PenggunaController extends Controller
         $pengguna->update($requestData);
 
         flash('Data pengguna berhasil diperbarui.')->success();
-        return redirect('/pengguna');
+        return redirect('/admin/pengguna');
     }
 
     public function destroy(string $id)
     {
         $pengguna = Pengguna::findOrFail($id);
 
-        // Check if the pengguna is associated with orders
+        // Check if the pengguna is associated with orders  
         if ($pengguna->orders->count() > 0) {
             flash('Data tidak dapat dihapus karena terkait dengan data pesanan.')->error();
             return back();
@@ -93,4 +93,32 @@ class PenggunaController extends Controller
         flash('Data pengguna berhasil dihapus.')->success();
         return back();
     }
+
+    public function register()
+    {
+        return view('pengguna_register');
+    }
+
+    public function storeRegister(Request $request)
+    {
+        $requestData = $request->validate([
+            'nama' => 'required|min:3',
+            'email' => 'required|email|unique:penggunas,email',
+            'password' => 'required|min:8',
+            'no_hp' => 'required|numeric',
+            'alamat' => 'nullable',
+        ]);
+
+        $requestData['password'] = bcrypt($requestData['password']); // Encrypt password
+        $requestData['role'] = 'pelanggan'; // Default role as pelanggan
+        Pengguna::create($requestData);
+
+        return redirect('/login')->with('success', 'Registrasi berhasil! Silakan login.');
+    }
+
+    public function profil()    
+    {    
+        $currentUser = Auth::user(); // Get the currently authenticated user    
+        return view('pengguna.profil', compact('currentUser'));    
+    }        
 }

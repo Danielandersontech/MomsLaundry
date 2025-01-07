@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('CACHE_STORE', 'database'),
+    'default' => env('CACHE_STORE', 'database'), // Menetapkan 'database' sebagai store default
 
     /*
     |--------------------------------------------------------------------------
@@ -40,10 +40,10 @@ return [
 
         'database' => [
             'driver' => 'database',
-            'connection' => env('DB_CACHE_CONNECTION'),
-            'table' => env('DB_CACHE_TABLE', 'cache'),
-            'lock_connection' => env('DB_CACHE_LOCK_CONNECTION'),
-            'lock_table' => env('DB_CACHE_LOCK_TABLE'),
+            'connection' => env('DB_CACHE_CONNECTION', null), // Pastikan koneksi DB diambil dari env jika ada
+            'table' => env('DB_CACHE_TABLE', 'cache'), // Tabel default adalah 'cache'
+            'lock_connection' => env('DB_CACHE_LOCK_CONNECTION', null), // Koneksi untuk kunci cache
+            'lock_table' => env('DB_CACHE_LOCK_TABLE', 'cache_locks'), // Tabel kunci default
         ],
 
         'file' => [
@@ -103,6 +103,6 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
+    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laundry_moms'), '_').'_cache_'),
 
 ];

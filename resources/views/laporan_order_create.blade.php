@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header">LAPORAN ORDER</div>
                     <div class="card-body">
-                        <form action="/laporan-order" method="GET" target="_blank">
+                        <form action="/admin/laporan-order" method="GET" target="_blank">
                             <div class="row mt-3">
                                 <div class="form-group col-md-4">
                                     <label for="tanggal_mulai">Tanggal Order Mulai</label>

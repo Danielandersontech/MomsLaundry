@@ -16,7 +16,7 @@
             </form>
             <div class="row mb-3 mt-3">
                 <div class="col-md-6">
-                    <a href="/order/create" class="btn btn-primary btn-sm">Tambah Data</a>
+                    <a href="/admin/order/create" class="btn btn-primary btn-sm">Tambah Data</a>
                 </div>
             </div>
             <table class="table table-striped">
@@ -43,9 +43,9 @@
                             <td>{{ ucfirst($order->status) }}</td>
                             <td>{{ $order->tgl_order }}</td>
                             <td>
-                                <a href="/order/{{ $order->id_order }}" class="btn btn-info btn-sm">Detail</a>
-                                <a href="/order/{{ $order->id_order }}/edit" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="/order/{{ $order->id_order }}" method="POST" class="d-inline">
+                                <a href="/admin/order/{{ $order->id_order }}" class="btn btn-info btn-sm">Detail</a>
+                                <a href="/admin/order/{{ $order->id_order }}/edit" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="/admin/order/{{ $order->id_order }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger btn-sm"

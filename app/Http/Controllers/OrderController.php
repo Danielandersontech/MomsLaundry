@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Pengguna;
 use App\Models\Package;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -16,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if (request()->filled('q')){
+        if (request()->filled('q')) {
             $data['orders'] = Order::search(request('q'))->paginate(10);
         } else {
             $data['orders'] = Order::latest()->paginate(10);
@@ -56,7 +57,7 @@ class OrderController extends Controller
             'status' => $validated['status'],
         ]);
 
-        return redirect()->route('order.index')->with('success', 'Order berhasil dibuat.');
+        return redirect('/admin/order')->with('success', 'Order berhasil dibuat.');
     }
 
     public function show(string $id)
@@ -86,7 +87,7 @@ class OrderController extends Controller
             'status' => 'required|in:Pending,Selesai,Dibatalkan',
         ]);
 
-        $subtotal = Package::find($validated['id_package'])->harga * $validated['berat_kg'];
+        $subtotal = Package::find($validated['id_package'])->harga_per_kg * $validated['berat_kg'];
 
         $order->update([
             'id_pengguna' => $validated['id_pengguna'],
@@ -96,14 +97,29 @@ class OrderController extends Controller
             'status' => $validated['status'],
         ]);
 
-        return redirect()->route('order.index')->with('success', 'Order berhasil diperbarui.');
+        return redirect('/admin/order')->with('success', 'Order berhasil diperbarui.');
     }
 
     public function destroy(Order $order)
     {
-        
+
         $order->delete();
         flash('Data Order Berhasil dihapus')->success();
         return back();
+    }
+
+    public function order()
+    {
+        $currentUser = Auth::user(); // Get the currently authenticated user    
+        $orders = $currentUser->orders()->latest()->paginate(10); // Fetch orders for the user with pagination    
+
+        return view('pengguna.order', compact('orders'));
+    }
+
+    public function printReceipt($id)
+    {
+        $order = Order::with(['pengguna', 'package'])->findOrFail($id); // Fetch the order with related pengguna and package  
+
+        return view('pengguna.printOrder', compact('order')); // Pass the order to the print view  
     }
 }

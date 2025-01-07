@@ -29,7 +29,7 @@ class PackageController extends Controller
         Package::create($requestData);
 
         flash('Data paket berhasil disimpan.')->success();
-        return redirect('/package');
+        return redirect('/admin/package');
     }
 
     public function show(string $id)
@@ -58,7 +58,7 @@ class PackageController extends Controller
         $package->update($requestData);
 
         flash('Data paket berhasil diperbarui.')->success();
-        return redirect('/package');
+        return redirect('/admin/package');
     }
 
     public function destroy(string $id)
@@ -69,5 +69,11 @@ class PackageController extends Controller
 
         flash('Data paket berhasil dihapus.')->success();
         return back();
+    }
+
+    public function paket()
+    {
+        $packages = Package::latest()->paginate(10); // Fetch all packages with pagination  
+        return view('pengguna.paket', compact('packages'));
     }
 }

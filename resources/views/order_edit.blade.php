@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header">EDIT ORDER</div>
     <div class="card-body">
-        <form action="{{ route('order.update', $order->id_order) }}" method="POST">
+        <form action="/admin/order/{{ $order->id_order }}" method="POST">
             @csrf
             @method('PUT')
 

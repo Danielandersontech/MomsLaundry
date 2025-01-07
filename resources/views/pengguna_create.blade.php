@@ -4,7 +4,7 @@
     <div class="card">
         <h5 class="card-header">Tambah Data Pengguna</h5>
         <div class="card-body">
-            <form action="/pengguna" method="POST">
+            <form action="/admin/pengguna" method="POST">
                 @csrf
                 <div class="form-group mt-1 mb-3">
                     <label for="nama">Nama Pengguna</label>

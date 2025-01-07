@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header">FORM ORDER</div>
     <div class="card-body">
-        <form action="{{ route('order.store') }}" method="POST">
+        <form action="/admin/order" method="POST">
             @csrf
             <div class="form-group mt-3">
                 <label for="id_pengguna">Pengguna
@@ -13,7 +13,7 @@
                 <select name="id_pengguna" class="form-control select2" data-placeholder="Cari Nama Pengguna..." style="width: 100%">
                     <option value="">-- Pilih Pengguna --</option>
                     @foreach ($listPengguna as $pengguna)
-                        <option value="{{ $pengguna->id_pengguna }}">{{ $pengguna->id_pengguna }} - {{ $pengguna->nama }}</option>
+                    <option value="{{ $pengguna->id_pengguna }}">{{ $pengguna->id_pengguna }} - {{ $pengguna->nama }}</option>
                     @endforeach
                 </select>
                 <span class="text-danger">{{ $errors->first('id_pengguna') }}</span>
@@ -24,7 +24,7 @@
                 <select name="id_package" class="form-control select2" data-placeholder="Cari Nama Pengguna..." style="width: 100%">
                     <option value="">-- Pilih Paket --</option>
                     @foreach ($listPackage as $package)
-                        <option value="{{ $package->id_package }}">{{ $package->nama_paket }} - {{ $package->harga }}</option>
+                    <option value="{{ $package->id_package }}">{{ $package->nama_paket }} - {{ $package->harga }}</option>
                     @endforeach
                 </select>
                 <span class="text-danger">{{ $errors->first('id_package') }}</span>

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateFeedbackRequest;
 use App\Models\Order;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller
 {
@@ -17,47 +18,45 @@ class FeedbackController extends Controller
         return view('feedback_index', $data);
     }
 
-    public function create()
-    {
-        $penggunas = Pengguna::all(); // Ambil semua data Pengguna
-        $orders = Order::all(); // Ambil semua data order
-        return view('feedback_create', compact('penggunas', 'orders'));
-    }
+    public function create()  
+    {  
+        // Get the currently authenticated user    
+        $currentUser = Auth::user();  
+      
+        // Get orders associated with the current user    
+        $orders = Order::where('id_pengguna', $currentUser->id_pengguna)->get(); // Adjust the field name as necessary  
+      
+        // Get feedback history for the current user  
+        $feedbacks = Feedback::where('id_pengguna', $currentUser->id_pengguna)->get();  
+      
+        return view('pengguna.feedback.create', [  
+            'currentUser' => $currentUser,  
+            'orders' => $orders,  
+            'feedbacks' => $feedbacks, // Pass feedbacks to the view  
+        ]);  
+    }  
+    
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'id_pengguna' => 'required|exists:penggunas,id_pengguna',
             'id_order' => 'required|exists:orders,id_order',
             'rating' => 'required|integer|min:1|max:5',
-            'komentar' => 'nullable|string',
+            'komentar' => 'required|string|max:255',
         ]);
 
-        Feedback::create($validated);
-
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dibuat.');
-    }
-
-    public function edit(Feedback $feedback)
-    {
-        $penggunas = Pengguna::all();
-        $orders = Order::all();
-        return view('feedback_edit', compact('feedback', 'penggunas', 'orders'));
-    }
-
-    public function update(Request $request, Feedback $feedback)
-    {
-        $validated = $request->validate([
-            'id_pengguna' => 'required|exists:penggunas,id_pengguna',
-            'id_order' => 'required|exists:orders,id_order',
-            'rating' => 'required|integer|min:1|max:5',
-            'komentar' => 'nullable|string',
+        Feedback::create([
+            'id_pengguna' => $request->id_pengguna,
+            'id_order' => $request->id_order,
+            'rating' => $request->rating,
+            'komentar' => $request->komentar,
         ]);
 
-        $feedback->update($validated);
-
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil diperbarui.');
+        // Redirect to the feedback creation page or another appropriate route  
+        return redirect()->route('pengguna.feedback.create')->with('success', 'Feedback berhasil dikirim.');
     }
+
 
     public function destroy(Feedback $feedback)
     {

@@ -15,7 +15,7 @@
             </form>
             <div class="row mb-3 mt-3">
                 <div class="col-md-6">
-                    <a href="/package/create" class="btn btn-primary btn-sm">Tambah Data</a>
+                    <a href="/admin/package/create" class="btn btn-primary btn-sm">Tambah Data</a>
                 </div>
             </div>
             <table class="table table-striped">
@@ -41,9 +41,9 @@
                             <td>{{ $package->created_at->format('d-m-Y') }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="/package/{{ $package->id_package }}" class="btn btn-info btn-sm me-1">Detail</a>
-                                    <a href="/package/{{ $package->id_package }}/edit" class="btn btn-warning btn-sm me-1">Edit</a>
-                                    <form action="/package/{{ $package->id_package }}" method="POST" class="d-inline">
+                                    <a href="/admin/package/{{ $package->id_package }}" class="btn btn-info btn-sm me-1">Detail</a>
+                                    <a href="/admin/package/{{ $package->id_package }}/edit" class="btn btn-warning btn-sm me-1">Edit</a>
+                                    <form action="/admin/package/{{ $package->id_package }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>

@@ -3,7 +3,7 @@
     <div class="card">
         <h5 class="card-header">Edit Data Pengguna: <b>{{ strtoupper($pengguna->nama) }}</b></h5>
         <div class="card-body">
-            <form action="/pengguna/{{ $pengguna->id_pengguna }}" method="POST">
+            <form action="/admin/pengguna/{{ $pengguna->id_pengguna }}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="form-group mt-1 mb-3">
