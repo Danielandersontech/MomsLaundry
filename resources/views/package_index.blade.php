@@ -41,7 +41,6 @@
                             <td>{{ $package->created_at->format('d-m-Y') }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="/admin/package/{{ $package->id_package }}" class="btn btn-info btn-sm me-1">Detail</a>
                                     <a href="/admin/package/{{ $package->id_package }}/edit" class="btn btn-warning btn-sm me-1">Edit</a>
                                     <form action="/admin/package/{{ $package->id_package }}" method="POST" class="d-inline">
                                         @csrf

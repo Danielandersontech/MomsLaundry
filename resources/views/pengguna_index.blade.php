@@ -41,7 +41,6 @@
                             <td>{{ ucfirst($pengguna->role) }}</td>  
                             <td>{{ $pengguna->created_at->format('d-m-Y') }}</td>  
                             <td>  
-                                <a href="/admin/pengguna/{{ $pengguna->id_pengguna }}" class="btn btn-info btn-sm">Detail</a>  
                                 <a href="/admin/pengguna/{{ $pengguna->id_pengguna }}/edit" class="btn btn-warning btn-sm">Edit</a>  
                                 <form action="/admin/pengguna/{{ $pengguna->id_pengguna }}" method="POST" class="d-inline">  
                                     @csrf  

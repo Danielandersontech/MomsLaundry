@@ -32,10 +32,10 @@
                         </div>
 
                         <!-- Checkbox untuk Remember Me -->
-                        <div class="mb-3 form-check">
+                        <!-- <div class="mb-3 form-check">
                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
-                        </div>
+                        </div> -->
 
                         <!-- Tombol Login -->
                         <div class="d-grid gap-2">
@@ -43,11 +43,11 @@
                         </div>
 
                         <!-- Forgot Password Link -->
-                        @if (Route::has('password.request'))
+                        <!-- @if (Route::has('password.request'))
                             <div class="text-center mt-3">
                                 <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
                             </div>
-                        @endif
+                        @endif -->
                     </form>
                 </div>
             </div>

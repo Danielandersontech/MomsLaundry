@@ -39,7 +39,7 @@ class Pengguna extends Authenticatable
         return $this->hasMany(Order::class, 'id_pengguna', 'id_pengguna');
     }
 
-    public function feedbacks(): HasMany
+    public function feedback(): HasMany
     {
         return $this->hasMany(Feedback::class, 'id_pengguna', 'id_pengguna');
     }

@@ -43,6 +43,8 @@ class OrderController extends Controller
             'id_package' => 'required|exists:packages,id_package',
             'berat_kg' => 'required|numeric|min:0',
             'tgl_order' => 'required|date',
+            'waktu_pengambilan' => 'nullable|date',
+            'waktu_pengantaran' => 'nullable|date',
             'status' => 'required|in:Pending,Selesai,Dibatalkan',
         ]);
 
@@ -54,6 +56,8 @@ class OrderController extends Controller
             'berat_kg' => $validated['berat_kg'],
             'subtotal' => $subtotal,
             'tgl_order' => $validated['tgl_order'],
+            'waktu_pengambilan' => $validated['waktu_pengambilan'],
+            'waktu_pengantaran' => $validated['waktu_pengantaran'],
             'status' => $validated['status'],
         ]);
 
@@ -84,6 +88,8 @@ class OrderController extends Controller
             'id_package' => 'required|exists:packages,id_package',
             'berat_kg' => 'required|numeric|min:0',
             'tgl_order' => 'required|date',
+            'waktu_pengambilan' => 'nullable|date',
+            'waktu_pengantaran' => 'nullable|date',
             'status' => 'required|in:Pending,Selesai,Dibatalkan',
         ]);
 
@@ -94,12 +100,14 @@ class OrderController extends Controller
             'id_package' => $validated['id_package'],
             'berat_kg' => $validated['berat_kg'],
             'subtotal' => $subtotal,
+            'tgl_order' => $validated['tgl_order'],
+            'waktu_pengambilan' => $validated['waktu_pengambilan'],
+            'waktu_pengantaran' => $validated['waktu_pengantaran'],
             'status' => $validated['status'],
         ]);
 
         return redirect('/admin/order')->with('success', 'Order berhasil diperbarui.');
     }
-
     public function destroy(Order $order)
     {
 
