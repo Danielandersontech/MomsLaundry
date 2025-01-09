@@ -9,6 +9,7 @@ use App\Models\Pengguna;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;  
 
 class OrderController extends Controller
 {
@@ -118,16 +119,16 @@ class OrderController extends Controller
 
     public function order()
     {
-        $currentUser = Auth::user(); // Get the currently authenticated user    
-        $orders = $currentUser->orders()->latest()->paginate(10); // Fetch orders for the user with pagination    
+        $currentUser = Auth::user(); 
+        $orders = $currentUser->orders()->latest()->paginate(10); 
 
         return view('pengguna.order', compact('orders'));
     }
 
     public function printReceipt($id)
     {
-        $order = Order::with(['pengguna', 'package'])->findOrFail($id); // Fetch the order with related pengguna and package  
+        $order = Order::with(['pengguna', 'package'])->findOrFail($id); 
 
-        return view('pengguna.printOrder', compact('order')); // Pass the order to the print view  
+        return view('pengguna.printOrder', compact('order'));
     }
 }

@@ -153,4 +153,4 @@
         }, 500);  
     });  
 </script>  
-@endsection  
+@endsection 
